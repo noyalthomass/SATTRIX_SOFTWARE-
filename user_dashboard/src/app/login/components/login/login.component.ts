@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   invalidCredentials = false;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -50,9 +51,16 @@ export class LoginComponent implements OnInit {
 
       if (username === storedUsername && password === storedPassword) {
         this.router.navigate(['/dashboard']);
+        this.snackBar.open('Login successful!', 'Close', {
+          duration: 1000 
+        });
       } else {
 
         this.invalidCredentials = true;
+
+        this.snackBar.open('User not registered yet!! Please register...', 'Close', {
+          duration: 1000 
+        });
       }
     }
   }

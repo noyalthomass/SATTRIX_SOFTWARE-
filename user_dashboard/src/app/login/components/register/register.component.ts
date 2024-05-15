@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private readonly router: Router) { }
+  constructor(private formBuilder: FormBuilder, private readonly router: Router,private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -43,11 +44,18 @@ export class RegisterComponent implements OnInit {
           sessionStorage.setItem('password', password);
 
           this.router.navigate(['/dashboard']);
+          this.snackBar.open('User creation successful!', 'Close', {
+            duration: 1000 
+          });
         } else {
-          console.error('Passwords do not match.');
+          this.snackBar.open('Passwords do not match.', 'Close', {
+            duration: 1000 
+          });
         }
       } else {
-        console.error('Form controls are null or undefined.');
+        this.snackBar.open('Form controls are null or undefined.', 'Close', {
+          duration: 1000 
+        });
       }
     }
   }

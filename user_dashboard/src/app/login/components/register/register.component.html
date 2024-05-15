@@ -1,0 +1,40 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <p>
+        <mat-form-field appearance="outline">
+            <input matInput placeholder="Username" type="text" id="username" formControlName="username">
+            <div *ngIf="registerForm?.get('username')?.invalid && registerForm?.get('username')?.touched">
+                <small *ngIf="registerForm?.get('username')?.hasError('required')">Username is required.</small>
+            </div>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="outline">
+            <input matInput placeholder="Email" type="email" id="email" formControlName="email">
+            <div *ngIf="registerForm?.get('email')?.invalid && registerForm?.get('email')?.touched">
+                <small *ngIf="registerForm?.get('email')?.hasError('required')">Email is required.</small>
+                <small *ngIf="registerForm?.get('email')?.hasError('email')">Invalid email format.</small>
+            </div>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="outline">
+            <input matInput placeholder="Password" type="password" id="password" formControlName="password">
+            <div *ngIf="registerForm?.get('password')?.invalid && registerForm?.get('password')?.touched">
+                <small *ngIf="registerForm?.get('password')?.hasError('required')">Password is required.</small>
+            </div>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="outline">
+            <input matInput placeholder="Confirm Password" type="password" id="confirmPassword"
+                formControlName="confirmPassword">
+            <div *ngIf="registerForm?.hasError('passwordMismatch')">
+                <small>Passwords do not match.</small>
+            </div>
+        </mat-form-field>
+    </p>
+    <p>
+        <button type="submit" [disabled]="registerForm.invalid">Login</button>
+
+    </p>
+</form>

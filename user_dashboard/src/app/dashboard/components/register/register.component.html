@@ -1,1 +1,40 @@
-<p>register works!</p>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <p>
+        <mat-form-field appearance="outline">
+            <input matInput placeholder="Name" type="text" class="form-control" id="name" formControlName="name">
+            <small *ngIf="f?.['name']?.invalid && f?.['name']?.touched" class="text-danger">
+                Name is required.
+            </small>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="outline">
+            <input matInput placeholder="Email" type="email" class="form-control" id="email" formControlName="email">
+            <div *ngIf="f?.['email']?.invalid && (f?.['email']?.touched || f?.['email']?.dirty)" class="text-danger">
+                <div *ngIf="f?.['email']?.errors?.['required']">Email is required.</div>
+                <div *ngIf="f?.['email']?.errors?.['email']">Invalid email format.</div>
+            </div>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="outline">
+            <input matInput placeholder="Phone" type="text" class="form-control" id="phone" formControlName="phone">
+            <div *ngIf="f?.['phone']?.invalid && f?.['phone']?.touched" class="text-danger">
+                Phone is required.
+            </div>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="outline">
+            <input matInput placeholder="City" type="text" class="form-control" id="city" formControlName="city">
+            <div *ngIf="f?.['city']?.invalid && f?.['city']?.touched" class="text-danger">
+                City is required.
+            </div>
+        </mat-form-field>
+    </p>
+    <p>
+        <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">
+            {{ userId? 'Update' : 'Register' }}
+        </button>
+    </p>
+</form>
